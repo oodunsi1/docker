@@ -8,6 +8,7 @@ WORKDIR /root/workdir
 # Installing Java, python, z3 dependencies
 RUN apt-get update && apt-get install -y \
     binutils \
+    curl \
     gcc \
     git \
     lsb-release \
