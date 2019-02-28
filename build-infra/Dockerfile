@@ -75,7 +75,7 @@ ENV _JAVA_OPTIONS -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForH
 # Add Bazel and Maven to PATH
 ENV PATH $PATH:/home/${USERNAME}/workdir/apache-maven-${MAVEN_VERSION}/bin:/home/${USERNAME}/bin
 
-# Fetch all the current Maven and bazel dependencies
+# Fetch all the current Maven dependencies
 RUN git clone --depth=1 --branch=master https://github.com/batfish/batfish \
 && cd batfish \
 && mvn -f projects verify -DskipTests=false \
@@ -83,3 +83,7 @@ RUN git clone --depth=1 --branch=master https://github.com/batfish/batfish \
 && mvn -f projects dependency:get -Dartifact=org.jacoco:org.jacoco.cli:${JACOCO_VERSION}:jar:nodeps \
 && cd .. \
 && rm -rf batfish
+
+# Fetch all the current Pybatfish dependencies
+RUN python3 -m pip download git+https://github.com/batfish/pybatfish.git
+&& rm -rf pybatfish-*.zip
